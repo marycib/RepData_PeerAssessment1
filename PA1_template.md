@@ -1,40 +1,33 @@
 ---
 title: "Reproducible Research Project 1"
-author: "MAribel"
+author: "Maribel"
 date: "30/10/2020"
-output:
-  html_document: default
-  pdf_document: default
-keep_md: yes
+output: html_document
+keep_md: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
 
 library(ggplot2)
 
 
-```
 
 ## Loading and preprocessing the data
 Code for reading in the dataset and/or processing the data
 
-```{r}
+
 
 activity<-read.csv("activity.csv")
 
-```
-
 
 Histogram of the total number of steps taken each day
-```{r}
+
 
 
 StepsPerDay <- tapply(activity$steps, activity$date, sum)
 
 
 hist(StepsPerDay, xlab = "Number of Steps", main = "Histogram of  steps per day", breaks = 10, col = "purple", border = "red" )
-```
 
 
 
@@ -43,12 +36,11 @@ hist(StepsPerDay, xlab = "Number of Steps", main = "Histogram of  steps per day"
 Mean and median number of steps taken each day
 
 
-```{r}
+
 mean(StepsPerDay, na.rm = TRUE)
 median(StepsPerDay, na.rm = TRUE)
 
 
-```
 
 
 
@@ -57,7 +49,7 @@ median(StepsPerDay, na.rm = TRUE)
 
 Time series plot of the average number of steps taken
 
-```{r}
+
 Steps_PerInterval <- tapply(activity$steps, activity$interval, mean, na.rm = TRUE)
 
 plot(as.numeric(names(Steps_PerInterval)), 
@@ -69,7 +61,6 @@ plot(as.numeric(names(Steps_PerInterval)),
 
 
 
-```
 
 
 
@@ -79,26 +70,23 @@ plot(as.numeric(names(Steps_PerInterval)),
 
 
 
-```{r}
+
 Interval_max <- names(sort(Steps_PerInterval, decreasing = TRUE)[1])
 Steps_max <- sort(Steps_PerInterval, decreasing = TRUE)[1]
-```
 
 
 ## Imputing missing values
 Code to describe and show a strategy for imputing missing data
 
-```{r}
+
 nrow(activity[is.na(activity$steps),])
 
 
-```
 
 Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated
 
 
 
-```{r}
 
 
 Steps_PerInterval <- tapply(activity$steps, activity$interval, mean, na.rm = TRUE)
@@ -110,28 +98,24 @@ for(i in 1:length(activitysplit)){
 }
 activityimputed <- do.call("rbind", activitysplit)
 activityimputed <- activityimputed[order(activityimputed$date) ,]
-```
+
 
 ##   Histogram of the total number of steps taken each day after missing values are imputed
 
-```{r}
+
 StepsPerDayimputed <- tapply(activityimputed$steps, activityimputed$date, sum)
 hist(StepsPerDayimputed, xlab = "Steps", main = "Steps per Day", col = "aquamarine1", border = "pink")
 
-```
 
-```{r}
 mean(StepsPerDayimputed, na.rm = TRUE)
 median(StepsPerDayimputed, na.rm = TRUE)
 
 
-```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
 
-```{r}
 library(chron)
 names(activity)
 meanIntervaWeekends <-
@@ -150,7 +134,8 @@ plot(
   col="red"
 )
 
-```
+
+
 
 
 
