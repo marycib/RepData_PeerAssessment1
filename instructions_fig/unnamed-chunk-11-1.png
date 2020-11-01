@@ -1,0 +1,10 @@
+library(ggplot2)
+
+
+activity<-read.csv("activity.csv")
+
+
+StepsPerDay <- tapply(activity$steps, activity$date, sum)
+
+
+hist(StepsPerDay, xlab = "Number of Steps", main = "Histogram of  steps per day", breaks = 10, col = "purple", border = "red" )
