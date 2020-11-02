@@ -1,13 +1,4 @@
 
----
-title: "Reproducible Research Project 1"
-author: "MAribel"
-date: "30/10/2020"
-output:
-  html_document: default
-  pdf_document: default
-keep_md: TRUE
----
 
 ```
 library(ggplot2)
